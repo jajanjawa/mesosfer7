@@ -23,6 +23,10 @@ public class MesosferUser {
         this.token = token;
     }
 
+    public MesosferUser() {
+        this(Mesosfer.getApplication());
+    }
+
     public MesosferUser(Application application) {
         rider = new MesosferRider(application);
     }
@@ -32,7 +36,7 @@ public class MesosferUser {
     }
 
     public MesosferCall register(UserBody user, MesosferCallback<RegisterResponse> callback) {
-       return rider.path("users").post(constructUserBody(user)).enqueue(new RequestCallback() {
+        return rider.path("users").post(constructUserBody(user)).enqueue(new RequestCallback() {
             @Override
             public void handle(MesosferResponse response, MesosferException e) {
                 RegisterResponse registerResponse = response != null ? response.fromResultAs(RegisterResponse.class) : null;
@@ -50,7 +54,7 @@ public class MesosferUser {
     }
 
     public MesosferCall deleteUserById(String id, MesosferCallback<Void> callback) {
-       return rider.path("users/" + id).authorize(token).delete().enqueue(new RequestCallback() {
+        return rider.path("users/" + id).authorize(token).delete().enqueue(new RequestCallback() {
             @Override
             public void handle(MesosferResponse response, MesosferException e) {
                 callback.handle(null, e);
@@ -63,7 +67,7 @@ public class MesosferUser {
     }
 
     public MesosferCall login(String email, String password, MesosferCallback<LoginResponse> callback) {
-       return rider.path("users/signin").post(constructLoginBody(email, password)).enqueue(new RequestCallback() {
+        return rider.path("users/signin").post(constructLoginBody(email, password)).enqueue(new RequestCallback() {
             @Override
             public void handle(MesosferResponse response, MesosferException e) {
                 LoginResponse loginResponse = response != null ? response.as(LoginResponse.class) : null;
@@ -99,7 +103,7 @@ public class MesosferUser {
     }
 
     public MesosferCall getUser(MesosferCallback<UserAttributes> callback) {
-       return rider.path("users/me").authorize(token).get().enqueue(new RequestCallback() {
+        return rider.path("users/me").authorize(token).get().enqueue(new RequestCallback() {
             @Override
             public void handle(MesosferResponse response, MesosferException e) {
                 UserAttributes userAttributes = response != null ? response.fromResultAs(UserAttributes.class) : null;
@@ -122,7 +126,7 @@ public class MesosferUser {
     }
 
     public MesosferCall save(String id, UserBody body, MesosferCallback<UpdateResponse> callback) {
-       return rider.path("users/" + id).authorize(token).put(constructUserBody(body)).enqueue(new RequestCallback() {
+        return rider.path("users/" + id).authorize(token).put(constructUserBody(body)).enqueue(new RequestCallback() {
             @Override
             public void handle(MesosferResponse response, MesosferException e) {
                 UpdateResponse updateResponse = response != null ? response.fromResultAs(UpdateResponse.class) : null;

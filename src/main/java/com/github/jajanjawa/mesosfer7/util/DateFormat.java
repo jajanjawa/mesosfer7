@@ -29,7 +29,6 @@ public class DateFormat  {
         try {
             return  serverDateFormat.parse(source);
         } catch (ParseException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
