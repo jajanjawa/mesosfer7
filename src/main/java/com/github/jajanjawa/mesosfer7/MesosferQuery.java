@@ -168,6 +168,20 @@ public class MesosferQuery {
         return rider.get().execute().count();
     }
 
+    public MesosferCall count(MesosferCallback<Long> callback) {
+        count = 1;
+        limit = 0;
+        addQuery(rider.getUrlBuilder());
+
+        return rider.get().enqueue(new RequestCallback() {
+            @Override
+            public void handle(MesosferResponse response, MesosferException e) {
+                Long count = response != null ? response.count() : 0;
+                callback.handle(count, e);
+            }
+        });
+    }
+
     public MesosferQuery equalTo(String key, Object value) {
         Clause clause = clauseBuilder.clear().column(key).equalTo(value).build();
         addWhereClause(clause);

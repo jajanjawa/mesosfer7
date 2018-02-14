@@ -7,3 +7,8 @@ Pustaka untuk backend [Mesosfer](https://mesosfer.com)
 - Data
 - Query
 - File
+
+### Saran untuk Mesosfer
+- reset sandi
+- logout sehingga token tidak bisa digunakan lagi
+- skema bayar lainnya, hanya beli api call saja
